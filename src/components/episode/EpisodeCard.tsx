@@ -45,7 +45,7 @@ export function EpisodeCard({
 
   return (
     <Card
-      className="group cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg h-full"
+      className="group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl bg-white border border-gray-200/50 shadow-lg h-full hover:border-gray-300/50"
       onClick={() => onClick?.(episode)}
     >
       <CardHeader className="pb-3">

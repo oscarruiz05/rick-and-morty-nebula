@@ -4,8 +4,9 @@ import Header from "@/components/layout/Header";
 import "./globals.css";
 
 const comfortaa = Comfortaa({
-  variable: "--font-comfortaa",
   subsets: ["latin"],
+  weight: ['400', '500', '700'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -20,9 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${comfortaa.variable} antialiased`}>
+      <body className={`${comfortaa.className} antialiased bg-gray-50`}>
         <Header />
-        <main className="container mx-auto px-4 py-8">{children}</main>
+        <main className="container mx-auto px-4 py-8 min-h-screen">{children}</main>
       </body>
     </html>
   );

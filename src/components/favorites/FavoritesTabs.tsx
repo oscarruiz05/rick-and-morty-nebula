@@ -70,7 +70,7 @@ export function FavoritesTabs({
             message="No tienes personajes favoritos"
           />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6">
             {favorites.characters.map((character) => (
               <CharacterCard
                 key={character.id}
@@ -90,7 +90,7 @@ export function FavoritesTabs({
             message="No tienes ubicaciones favoritas"
           />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
             {favorites.locations.map((location) => (
               <LocationCard
                 key={location.id}
@@ -110,7 +110,7 @@ export function FavoritesTabs({
             message="No tienes episodios favoritos"
           />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
             {favorites.episodes.map((episode) => (
               <EpisodeCard
                 key={episode.id}
