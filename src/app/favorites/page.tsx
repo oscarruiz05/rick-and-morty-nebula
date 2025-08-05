@@ -4,7 +4,9 @@ import { EmptyFavoritesState } from "@/components/favorites/EmptyFavoritesState"
 import { FavoritesErrorState } from "@/components/favorites/FavoritesErrorState";
 import { FavoritesLoadingState } from "@/components/favorites/FavoritesLoadingState";
 import { FavoritesTabs } from "@/components/favorites/FavoritesTabs";
+import { useEntityNavigation } from "@/hooks/useEntityNavigation";
 import { useFavorites } from "@/hooks/useFavorites";
+import { Character, Episode, Location } from "@/types/api";
 import { Heart } from "lucide-react";
 import { useState } from "react";
 
@@ -19,6 +21,22 @@ export default function FavoritesPage() {
   } = useFavorites();
 
   const [activeTab, setActiveTab] = useState("characters");
+
+  const { navigateToEntity: navigateToCharacter } = useEntityNavigation({ entityType: "characters" });
+  const { navigateToEntity: navigateToEpisode } = useEntityNavigation({ entityType: "episodes" });
+  const { navigateToEntity: navigateToLocation } = useEntityNavigation({ entityType: "locations" });
+
+  const handleCharacterClick = (character: Character) => {
+    navigateToCharacter(character);
+  };
+
+  const handleEpisodeClick = (episode: Episode) => {
+    navigateToEpisode(episode);
+  };
+
+  const handleLocationClick = (location: Location) => {
+    navigateToLocation(location);
+  };
 
   if (loading) {
     return <FavoritesLoadingState />;
@@ -52,6 +70,9 @@ export default function FavoritesPage() {
           activeTab={activeTab}
           onTabChange={setActiveTab}
           onFavoriteChange={handleFavoriteChange}
+          onCharacterClick={handleCharacterClick}
+          onEpisodeClick={handleEpisodeClick}
+          onLocationClick={handleLocationClick}
         />
       )}
     </div>

@@ -17,6 +17,9 @@ interface FavoritesTabsProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
   onFavoriteChange: () => void;
+  onCharacterClick?: (character: Character) => void;
+  onLocationClick?: (location: Location) => void;
+  onEpisodeClick?: (episode: Episode) => void;
 }
 
 export function FavoritesTabs({
@@ -24,6 +27,9 @@ export function FavoritesTabs({
   activeTab,
   onTabChange,
   onFavoriteChange,
+  onCharacterClick,
+  onLocationClick,
+  onEpisodeClick,
 }: FavoritesTabsProps) {
   return (
     <Tabs value={activeTab} onValueChange={onTabChange} className="w-full">
@@ -69,6 +75,7 @@ export function FavoritesTabs({
               <CharacterCard
                 key={character.id}
                 character={character}
+                onClick={onCharacterClick ? () => onCharacterClick(character) : undefined}
                 onFavoriteChange={onFavoriteChange}
               />
             ))}
@@ -88,6 +95,7 @@ export function FavoritesTabs({
               <LocationCard
                 key={location.id}
                 location={location}
+                onClick={onLocationClick ? () => onLocationClick(location) : undefined}
                 onFavoriteChange={onFavoriteChange}
               />
             ))}
@@ -107,6 +115,7 @@ export function FavoritesTabs({
               <EpisodeCard
                 key={episode.id}
                 episode={episode}
+                onClick={onEpisodeClick ? () => onEpisodeClick(episode) : undefined}
                 onFavoriteChange={onFavoriteChange}
               />
             ))}
