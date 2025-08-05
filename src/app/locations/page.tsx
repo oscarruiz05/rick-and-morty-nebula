@@ -3,8 +3,10 @@
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { LoadingSkeleton } from "@/components/LoadingSkeleton";
 import { LocationCard } from "@/components/location/LocationCard";
+import { useEntityNavigation } from "@/hooks/useEntityNavigation";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { getLocations } from "@/services/locations";
+import { Location } from "@/types/api";
 import { Loader2 } from "lucide-react";
 
 export default function LocationsPage() {
@@ -19,6 +21,12 @@ export default function LocationsPage() {
     fetchFunction: getLocations,
   });
 
+  const { navigateToEntity } = useEntityNavigation({ entityType: 'locations' });
+
+  const handleLocationClick = (location: Location) => {
+    navigateToEntity(location);
+  };
+
   if (error && locations.length === 0) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
@@ -32,7 +40,11 @@ export default function LocationsPage() {
       {/* Grid de ubicaciones */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {locations.map((location) => (
-          <LocationCard key={location.id} location={location} />
+          <LocationCard 
+            key={location.id} 
+            location={location} 
+            onClick={() => handleLocationClick(location)}
+          />
         ))}
       </div>
 
