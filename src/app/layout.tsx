@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Comfortaa } from "next/font/google";
 import Header from "@/components/layout/Header";
 import "./globals.css";
+import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 
 const comfortaa = Comfortaa({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`${comfortaa.className} antialiased bg-gray-50`}>
         <Header />
         <main className="container mx-auto px-4 py-8 min-h-screen">{children}</main>
+        <ScrollToTopButton />
       </body>
     </html>
   );
