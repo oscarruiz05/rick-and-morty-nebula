@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Comfortaa } from "next/font/google";
+import Header from "@/components/layout/Header";
 import "./globals.css";
 
 const comfortaa = Comfortaa({
@@ -19,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${comfortaa.variable} antialiased`}>{children}</body>
+      <body className={`${comfortaa.variable} antialiased`}>
+        <Header />
+        <main className="container mx-auto px-4 py-8">{children}</main>
+      </body>
     </html>
   );
 }
