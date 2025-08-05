@@ -50,7 +50,7 @@ export default function Header() {
           <div className="grid grid-cols-4 gap-1 bg-muted p-1 rounded-lg mb-4">
             {navigationItems.map((item) => {
               const Icon = item.icon;
-              const isActive = pathname === item.href;
+              const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
 
               return (
                 <Link

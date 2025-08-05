@@ -11,6 +11,7 @@ import {
   isCharacterFavorite,
   toggleCharacterFavorite,
 } from "@/services/favorites";
+import { getStatusColor, getStatusText } from "@/utils/status";
 
 interface CharacterCardProps {
   character: Character;
@@ -32,28 +33,6 @@ export function CharacterCard({
     const newFavoriteState = toggleCharacterFavorite(character.id);
     setIsFavorite(newFavoriteState);
     onFavoriteChange?.();
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "alive":
-        return "bg-green-500";
-      case "dead":
-        return "bg-red-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
-
-  const getStatusText = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "alive":
-        return "Vivo";
-      case "dead":
-        return "Muerto";
-      default:
-        return "Desconocido";
-    }
   };
 
   return (

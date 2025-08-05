@@ -3,8 +3,10 @@
 import { CharacterCard } from "@/components/character/CharacterCard";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { LoadingSkeleton } from "@/components/LoadingSkeleton";
+import { useEntityNavigation } from "@/hooks/useEntityNavigation";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { getCharacters } from "@/services/characters";
+import { Character } from "@/types/api";
 import { Loader2 } from "lucide-react";
 
 export default function CharactersPage() {
@@ -19,6 +21,12 @@ export default function CharactersPage() {
     fetchFunction: getCharacters,
   });
 
+  const { navigateToEntity } = useEntityNavigation({ entityType: 'characters' });
+
+  const handleCharacterClick = (character: Character) => {
+    navigateToEntity(character);
+  };
+
   return (
     <div className="space-y-6">
       {/* Grid de personajes */}
@@ -27,6 +35,7 @@ export default function CharactersPage() {
           <CharacterCard
             key={character.id}
             character={character}
+            onClick={() => handleCharacterClick(character)}
           />
         ))}
       </div>
