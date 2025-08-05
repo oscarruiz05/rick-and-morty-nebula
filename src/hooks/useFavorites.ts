@@ -1,73 +1,88 @@
-import { useState, useEffect } from "react";
-import { Character, Episode, Location } from "@/types/api";
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import { Character, Location, Episode } from "@/types/api";
 import { getFavorites } from "@/services/favorites";
 import { getMultipleCharacters } from "@/services/characters";
-import { getMultipleEpisodes } from "@/services/episodes";
 import { getMultipleLocations } from "@/services/locations";
+import { getMultipleEpisodes } from "@/services/episodes";
 
-interface UseFavoritesResult {
-  favoriteCharacters: Character[];
-  favoriteEpisodes: Episode[];
-  favoriteLocations: Location[];
-  loading: boolean;
-  error: string | null;
-  refreshFavorites: () => void;
+interface FavoritesData {
+  characters: Character[];
+  locations: Location[];
+  episodes: Episode[];
 }
 
-export function useFavorites(): UseFavoritesResult {
-  const [favoriteCharacters, setFavoriteCharacters] = useState<Character[]>([]);
-  const [favoriteEpisodes, setFavoriteEpisodes] = useState<Episode[]>([]);
-  const [favoriteLocations, setFavoriteLocations] = useState<Location[]>([]);
+interface UseFavoritesReturn {
+  favorites: FavoritesData;
+  loading: boolean;
+  error: string | null;
+  totalFavorites: number;
+  loadFavorites: () => Promise<void>;
+  handleFavoriteChange: () => void;
+}
+
+/**
+ * Hook personalizado para manejar la lógica de favoritos
+ * Gestiona la carga, estado y actualización de elementos favoritos
+ */
+export function useFavorites(): UseFavoritesReturn {
+  const [favorites, setFavorites] = useState<FavoritesData>({
+    characters: [],
+    locations: [],
+    episodes: [],
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadFavorites = async () => {
+  const loadFavorites = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const favorites = getFavorites();
+      const favoriteIds = getFavorites();
 
-      // Cargar personajes favoritos
-      const characters = favorites.characters.length > 0 
-        ? await getMultipleCharacters(favorites.characters)
-        : [];
+      // Cargar datos solo si hay favoritos para optimizar rendimiento
+      const [characters, locations, episodes] = await Promise.all([
+        favoriteIds.characters.length > 0
+          ? getMultipleCharacters(favoriteIds.characters)
+          : [],
+        favoriteIds.locations.length > 0
+          ? getMultipleLocations(favoriteIds.locations)
+          : [],
+        favoriteIds.episodes.length > 0
+          ? getMultipleEpisodes(favoriteIds.episodes)
+          : [],
+      ]);
 
-      // Cargar episodios favoritos
-      const episodes = favorites.episodes.length > 0
-        ? await getMultipleEpisodes(favorites.episodes)
-        : [];
-
-      // Cargar ubicaciones favoritas
-      const locations = favorites.locations.length > 0
-        ? await getMultipleLocations(favorites.locations)
-        : [];
-
-      setFavoriteCharacters(characters);
-      setFavoriteEpisodes(episodes);
-      setFavoriteLocations(locations);
+      setFavorites({ characters, locations, episodes });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error al cargar favoritos");
+      setError("Error al cargar los favoritos");
       console.error("Error loading favorites:", err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const refreshFavorites = () => {
+  const handleFavoriteChange = useCallback(() => {
     loadFavorites();
-  };
+  }, [loadFavorites]);
 
   useEffect(() => {
     loadFavorites();
-  }, []);
+  }, [loadFavorites]);
+
+  const totalFavorites =
+    favorites.characters.length +
+    favorites.locations.length +
+    favorites.episodes.length;
 
   return {
-    favoriteCharacters,
-    favoriteEpisodes,
-    favoriteLocations,
+    favorites,
     loading,
     error,
-    refreshFavorites,
+    totalFavorites,
+    loadFavorites,
+    handleFavoriteChange,
   };
 }
