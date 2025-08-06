@@ -2,6 +2,26 @@
 
 Todos los cambios notables de este proyecto serán documentados en este archivo.
 
+## [0.1.1] - 2025-08-05
+
+### Añadido
+- **Páginas de detalle para ubicaciones** (`/locations/[id]`) con información completa y residentes
+- **Página de favoritos** (`/favorites`) con navegación por tabs y gestión completa
+- **Navegación desde tarjetas de favoritos** hacia páginas de detalle
+- **Hook useFavorites** para gestión centralizada del estado de favoritos
+- **Hook useLocationRelations** para cargar residentes de ubicaciones
+- **Componente FavoritesTabs** modular y reutilizable
+- **Componente LocationRelations** para mostrar detalles y residentes
+
+### Mejorado
+- **Header de navegación** ahora mantiene tabs activos en rutas anidadas (ej: `/characters/1`)
+- **Navegación consistente** entre todas las páginas principales y de detalle
+- **Gestión de estados** mejorada con loading, error y empty states específicos
+
+### Corregido
+- **Click handlers** agregados a todas las tarjetas para navegación fluida
+- **TypeScript** tipos y interfaces completadas para mejor desarrollo
+
 
 ## [0.1.0] - 2025-08-04
 

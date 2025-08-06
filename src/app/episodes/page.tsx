@@ -3,8 +3,10 @@
 import { EpisodeCard } from "@/components/episode/EpisodeCard";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { LoadingSkeleton } from "@/components/LoadingSkeleton";
+import { useEntityNavigation } from "@/hooks/useEntityNavigation";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { getEpisodes } from "@/services/episodes";
+import { Episode } from "@/types/api";
 import { Loader2 } from "lucide-react";
 
 export default function EpisodesPage() {
@@ -19,6 +21,12 @@ export default function EpisodesPage() {
     fetchFunction: getEpisodes,
   });
 
+  const { navigateToEntity } = useEntityNavigation({ entityType: "episodes" });
+
+  const handleEpisodeClick = (episode: Episode) => {
+    navigateToEntity(episode);
+  };
+
   if (error && episodes.length === 0) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
@@ -32,7 +40,7 @@ export default function EpisodesPage() {
       {/* Grid de episodios */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {episodes.map((episode) => (
-          <EpisodeCard key={episode.id} episode={episode} />
+          <EpisodeCard key={episode.id} episode={episode} onClick={handleEpisodeClick} />
         ))}
       </div>
 

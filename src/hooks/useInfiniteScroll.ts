@@ -1,7 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { useInView } from "react-intersection-observer";
 
-interface UseInfiniteScrollProps<T> {
+interface HasId {
+  id: number;
+}
+
+interface UseInfiniteScrollProps<T extends HasId> {
   fetchFunction: (
     page: number
   ) => Promise<{ results: T[]; info: { next: string | null } }>;
@@ -19,7 +23,7 @@ interface UseInfiniteScrollReturn<T> {
   reset: () => void;
 }
 
-export function useInfiniteScroll<T>({
+export function useInfiniteScroll<T extends HasId>({
   fetchFunction,
   initialPage = 1,
 }: UseInfiniteScrollProps<T>): UseInfiniteScrollReturn<T> {
@@ -46,9 +50,9 @@ export function useInfiniteScroll<T>({
 
       setData((prevData) => {
         // Evitar duplicados
-        const existingIds = new Set(prevData.map((item: any) => item.id));
+        const existingIds = new Set(prevData.map((item) => item.id));
         const newItems = response.results.filter(
-          (item: any) => !existingIds.has(item.id)
+          (item) => !existingIds.has(item.id)
         );
         return [...prevData, ...newItems];
       });

@@ -1,42 +1,34 @@
-import { Favorites } from '@/types/api';
+import { Favorites } from "@/types/api";
 
-const FAVORITES_KEY = 'rick-morty-favorites';
+const FAVORITES_KEY = "rick-morty-favorites";
 
 // Obtener favoritos del localStorage
 export function getFavorites(): Favorites {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return { characters: [], locations: [], episodes: [] };
   }
-  
+
   try {
     const stored = localStorage.getItem(FAVORITES_KEY);
-    console.log('📖 Obteniendo favoritos del localStorage:', stored);
     if (stored) {
       const parsed = JSON.parse(stored);
-      console.log('📋 Favoritos parseados:', parsed);
       return parsed;
     }
   } catch (error) {
-    console.error('❌ Error al obtener favoritos:', error);
+    console.error("❌ Error al obtener favoritos:", error);
   }
-  
-  console.log('📝 Retornando favoritos vacíos');
+
   return { characters: [], locations: [], episodes: [] };
 }
 
 // Guardar favoritos en localStorage
 export function saveFavorites(favorites: Favorites): void {
-  if (typeof window === 'undefined') return;
-  
+  if (typeof window === "undefined") return;
+
   try {
-    console.log('🔄 Guardando favoritos:', favorites);
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
-    console.log('✅ Favoritos guardados exitosamente');
-    // Verificar que se guardó correctamente
-    const saved = localStorage.getItem(FAVORITES_KEY);
-    console.log('🔍 Verificación - Datos guardados:', JSON.parse(saved || '{}'));
   } catch (error) {
-    console.error('❌ Error al guardar favoritos:', error);
+    console.error("❌ Error al guardar favoritos:", error);
   }
 }
 
@@ -53,7 +45,9 @@ export function addCharacterToFavorites(characterId: number): void {
 // Remover un personaje de favoritos
 export function removeCharacterFromFavorites(characterId: number): void {
   const favorites = getFavorites();
-  favorites.characters = (favorites.characters || []).filter(id => id !== characterId);
+  favorites.characters = (favorites.characters || []).filter(
+    (id) => id !== characterId
+  );
   saveFavorites(favorites);
 }
 
@@ -76,7 +70,9 @@ export function addLocationToFavorites(locationId: number): void {
 // Remover una ubicación de favoritos
 export function removeLocationFromFavorites(locationId: number): void {
   const favorites = getFavorites();
-  favorites.locations = (favorites.locations || []).filter(id => id !== locationId);
+  favorites.locations = (favorites.locations || []).filter(
+    (id) => id !== locationId
+  );
   saveFavorites(favorites);
 }
 
@@ -99,7 +95,9 @@ export function addEpisodeToFavorites(episodeId: number): void {
 // Remover un episodio de favoritos
 export function removeEpisodeFromFavorites(episodeId: number): void {
   const favorites = getFavorites();
-  favorites.episodes = (favorites.episodes || []).filter(id => id !== episodeId);
+  favorites.episodes = (favorites.episodes || []).filter(
+    (id) => id !== episodeId
+  );
   saveFavorites(favorites);
 }
 
