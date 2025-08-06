@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌌 Rick and Morty Nebula
 
-## Getting Started
+Una aplicación web moderna y responsiva para explorar el universo de Rick and Morty, construida con Next.js 15 y React 19. Navega a través de personajes, episodios y ubicaciones con una experiencia de usuario fluida e intuitiva.
 
-First, run the development server:
 
+## ✨ Características Principales
+
+### 🎭 Personajes
+- **Exploración completa** de todos los personajes de Rick and Morty
+- **Información detallada**: estado vital, especie, género, origen y ubicación
+- **Indicadores visuales** de estado con colores intuitivos (verde/rojo/gris)
+- **Páginas de detalle** con información completa de cada personaje
+
+### 📺 Episodios
+- **Catálogo completo** de episodios organizados por temporadas
+- **Información detallada**: código de episodio, fecha de emisión
+- **Lista de personajes** que aparecen en cada episodio
+- **Navegación entre episodios** y personajes relacionados
+
+### 🌍 Ubicaciones
+- **Exploración de dimensiones** y ubicaciones del multiverso
+- **Información completa**: tipo, dimensión y residentes
+- **Relaciones entre ubicaciones** y personajes
+- **Navegación intuitiva** entre ubicaciones y habitantes
+
+### ⭐ Sistema de Favoritos
+- **Guardar favoritos** en personajes, episodios y ubicaciones
+- **Persistencia local** que mantiene tus selecciones
+- **Página dedicada** con navegación por tabs
+- **Gestión completa** de elementos favoritos
+
+### ⚡ Rendimiento y UX
+- **Scroll infinito** para carga eficiente de contenido
+- **Loading skeletons** para una mejor experiencia visual
+- **Gestión de errores** con opciones de reintento
+- **Diseño responsivo** que funciona en todos los dispositivos
+
+## 🛠️ Stack Tecnológico
+
+### Frontend
+- **Next.js 15.4.5** - Framework React con App Router
+- **React 19.1.0** - Biblioteca de componentes con últimas características
+- **TypeScript** - Tipado estático para mayor robustez
+- **Tailwind CSS 4** - Framework de utilidades CSS
+- **shadcn/ui** - Componentes UI accesibles y personalizables
+
+### Funcionalidades
+- **Axios** - Cliente HTTP para llamadas a la API
+- **React Intersection Observer** - Scroll infinito eficiente
+- **Lucide React** - Iconografía moderna y consistente
+- **Radix UI** - Componentes primitivos accesibles
+
+## 🚀 Inicio Rápido
+
+### Prerrequisitos
+- Node.js 18+ 
+- npm, yarn, pnpm o bun
+
+### 1. Clonación del Repositorio
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/oscarruiz05/rick-and-morty-nebula.git
+cd rick-and-morty-nebula
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Instalación de Dependencias
+```bash
+npm install
+# o
+yarn install
+# o
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Configuración del Entorno
+```bash
+# Copia el archivo de ejemplo
+cp .env.example .env
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Edita las variables si es necesario
+# Por defecto usa la API pública de Rick and Morty
+```
 
-## Learn More
+### 4. Ejecución en Desarrollo
+```bash
+npm run dev
+# o
+yarn dev
+# o
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver la aplicación.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🐳 Deployment con Docker
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Construcción y Ejecución Rápida
+```bash
+# Construir imagen Docker y crear el contendor
+docker-compose up --build
+```
 
-## Deploy on Vercel
+Para más detalles sobre Docker, consulta [DOCKER.md](./DOCKER.md).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📁 Estructura del Proyecto
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+rick-and-morty-nebula/
+├── src/
+│   ├── app/                     # App Router de Next.js
+│   │   ├── characters/          # Páginas de personajes
+│   │   ├── episodes/           # Páginas de episodios
+│   │   ├── locations/          # Páginas de ubicaciones
+│   │   └── favorites/          # Página de favoritos
+│   ├── components/             # Componentes reutilizables
+│   │   ├── character/          # Componentes de personajes
+│   │   ├── episode/           # Componentes de episodios
+│   │   ├── location/          # Componentes de ubicaciones
+│   │   ├── favorites/         # Componentes de favoritos
+│   │   ├── layout/            # Componentes de layout
+│   │   └── ui/               # Componentes UI base
+│   ├── hooks/                 # Hooks personalizados
+│   ├── services/             # Servicios de API
+│   ├── types/               # Definiciones TypeScript
+│   └── lib/                # Utilidades y configuración
+├── public/                 # Archivos estáticos
+└── docs/                  # Documentación adicional
+```
+
+## 🌐 API
+
+### Endpoints Principales
+- `GET /character` - Lista de personajes con paginación
+- `GET /character/{id}` - Detalle de personaje específico
+- `GET /episode` - Lista de episodios
+- `GET /location` - Lista de ubicaciones

@@ -2,6 +2,31 @@
 
 Todos los cambios notables de este proyecto serán documentados en este archivo.
 
+## [0.1.2] - 2025-08-05
+
+### Añadido
+- **Configuración Docker completa** para deployment en producción
+- **Dockerfile multi-stage** optimizado con Alpine Linux para imágenes ligeras
+- **docker-compose.yml** con variables de entorno y configuración de salud
+- **Scripts de deployment** multiplataforma (deploy.sh para Linux/macOS, deploy.bat para Windows)
+- **Documentación Docker** (DOCKER.md) con guía completa de deployment
+- **Variables de entorno** organizadas en .env.example con configuración de producción
+- **Health checks** y monitoreo de contenedores
+- **Comandos npm** para gestión Docker (build, up, down, logs, restart)
+
+### Mejorado
+- **TypeScript** corregidos tipos en useInfiniteScroll hook para mayor seguridad
+- **Configuración Next.js** optimizada para standalone output en Docker
+- **Gestión de dependencias** mejorada con cache cleaning y optimizaciones de build
+- **Seguridad** implementada con usuario no-root en contenedores
+- **Performance** optimizada con multi-stage builds y compresión
+
+### Técnico
+- **Base Alpine Linux** reduce el tamaño de imagen en ~70%
+- **Variables de entorno** centralizadas en .env para configuración flexible
+- **Build process** optimizado para CI/CD y deployment automatizado
+- **Cross-platform support** con scripts de deployment para Windows y Unix
+
 ## [0.1.1] - 2025-08-05
 
 ### Añadido
