@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   images: {
     remotePatterns: [
       {
@@ -10,6 +11,13 @@ const nextConfig: NextConfig = {
         pathname: "/api/character/avatar/**",
       },
     ],
+    minimumCacheTTL: 60,
+  },
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
   },
 };
 
