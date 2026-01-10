@@ -1,6 +1,6 @@
 # Changelog
 
-Todos los cambios notables de este proyecto serán documentados en este archivo.
+Todos los cambios notables de este proyecto serán documentados en este archivo..
 
 ## [0.1.2] - 2025-08-05
 
